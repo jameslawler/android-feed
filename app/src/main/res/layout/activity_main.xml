@@ -7,12 +7,18 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar"/>
+        layout="@layout/toolbar" />
 
     <TextView
-        android:id="@+id/greeting"
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:id="@+id/change"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="Hello World" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/feed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/change" />
 
 </RelativeLayout>
