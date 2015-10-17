@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jameslawler.android_feed.R;
@@ -28,7 +29,11 @@ public class RssItemAdapter extends RecyclerView.Adapter<RssItemAdapter.RssItemV
     public void onBindViewHolder(RssItemViewHolder rssItemViewHolder, int index) {
         RssItem rssItem = rssItems.get(index);
 
-        rssItemViewHolder.vName.setText(rssItem.name);
+        rssItemViewHolder.name.setText(rssItem.name);
+        rssItemViewHolder.description.setText(rssItem.description);
+        rssItemViewHolder.publishDate.setText(rssItem.publishDate);
+        rssItemViewHolder.image.setImageResource(rssItem.image);
+        rssItemViewHolder.channel.setImageResource(R.drawable.channel);
     }
 
     @Override
@@ -41,11 +46,19 @@ public class RssItemAdapter extends RecyclerView.Adapter<RssItemAdapter.RssItemV
     }
 
     public static class RssItemViewHolder extends RecyclerView.ViewHolder {
-        protected TextView vName;
+        protected TextView name;
+        protected TextView description;
+        protected TextView publishDate;
+        protected ImageView image;
+        protected ImageView channel;
 
         public RssItemViewHolder(View v) {
             super(v);
-            vName =  (TextView) v.findViewById(R.id.name);
+            name = (TextView) v.findViewById(R.id.name);
+            description = (TextView) v.findViewById(R.id.description);
+            publishDate = (TextView) v.findViewById(R.id.publishDate);
+            image = (ImageView) v.findViewById(R.id.profile);
+            channel = (ImageView) v.findViewById(R.id.channel_picture);
         }
     }
 }

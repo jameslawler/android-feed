@@ -35,11 +35,8 @@ public class MainActivity extends AppCompatActivity {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         feed.setLayoutManager(layoutManager);
 
-        rssItemAdapter = new RssItemAdapter(createList("First", 30));
+        rssItemAdapter = new RssItemAdapter(createList("DW Top Thema", 10));
         feed.setAdapter(rssItemAdapter);
-
-        RxView.clicks(findViewById(R.id.change))
-                .subscribe(l -> changeList());
     }
 
     private void changeList() {
@@ -52,12 +49,16 @@ public class MainActivity extends AppCompatActivity {
     private List<RssItem> createList(String prefix, int size) {
 
         List<RssItem> result = new ArrayList<RssItem>();
-        for (int i=1; i <= size; i++) {
-            RssItem rssItem = new RssItem();
-            rssItem.name = prefix + i;
 
-            result.add(rssItem);
-        }
+        result.add(new RssItem("Flüchtlinge auf dem deutschen Arbeitsmarkt", "Viele Betriebe in Deutschland suchen Lehrlinge, viele Flüchtlinge suchen Arbeit. Trotzdem können Flüchtlinge oft nicht in Betrieben arbeiten. Für die schlechte Integration auf dem Arbeitsmarkt gibt es viele Gründe.", "1 hour ago", R.drawable.test));
+        result.add(new RssItem("Demonstration gegen TTIP", "Die USA und die EU verhandeln gerade über das Freihandelsabkommen TTIP. 150.000 Menschen haben in Berlin gegen das Abkommen demonstriert. Sie sehen darin große Gefahren. Für die Wirtschaft aber überwiegen die Vorteile.", "1 hour ago", R.drawable.test2));
+        result.add(new RssItem("Mehr Datenschutz für Europa", "Wegen eines Abkommens zwischen Europa und den USA konnten Unternehmen bisher persönliche Daten von EU-Bürgern einfach in die USA weitergeben. Der Europäische Gerichtshof erklärte dieses Abkommen nun für ungültig.", "1 hour ago", R.drawable.test3));
+        result.add(new RssItem("Sichere Taxis für Frauen in Ägypten", "Fast jede Frau in Ägypten wurde schon mal sexuell belästigt. Reem Fawzy hat in Kairo das Projekt „Pink Taxi“ gestartet. Es ist ein Taxi-Service von Frauen für Frauen. So können sie sich sicher durch die Stadt bewegen.", "1 hour ago", R.drawable.test4));
+
+        result.add(new RssItem("Flüchtlinge auf dem deutschen Arbeitsmarkt", "Viele Betriebe in Deutschland suchen Lehrlinge, viele Flüchtlinge suchen Arbeit. Trotzdem können Flüchtlinge oft nicht in Betrieben arbeiten. Für die schlechte Integration auf dem Arbeitsmarkt gibt es viele Gründe.", "1 hour ago", R.drawable.test));
+        result.add(new RssItem("Demonstration gegen TTIP", "Die USA und die EU verhandeln gerade über das Freihandelsabkommen TTIP. 150.000 Menschen haben in Berlin gegen das Abkommen demonstriert. Sie sehen darin große Gefahren. Für die Wirtschaft aber überwiegen die Vorteile.", "1 hour ago", R.drawable.test2));
+        result.add(new RssItem("Mehr Datenschutz für Europa", "Wegen eines Abkommens zwischen Europa und den USA konnten Unternehmen bisher persönliche Daten von EU-Bürgern einfach in die USA weitergeben. Der Europäische Gerichtshof erklärte dieses Abkommen nun für ungültig.", "1 hour ago", R.drawable.test3));
+        result.add(new RssItem("Sichere Taxis für Frauen in Ägypten", "Fast jede Frau in Ägypten wurde schon mal sexuell belästigt. Reem Fawzy hat in Kairo das Projekt „Pink Taxi“ gestartet. Es ist ein Taxi-Service von Frauen für Frauen. So können sie sich sicher durch die Stadt bewegen.", "1 hour ago", R.drawable.test4));
 
         return result;
     }
