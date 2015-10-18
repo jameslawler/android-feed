@@ -1,46 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/menu_shortcuts"
+        android:checkableBehavior="single">
 
         <item
             android:id="@+id/inbox"
             android:checked="false"
-            android:icon="@android:drawable/btn_dialog"
-            android:title="Hello 0" />
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="Main Feed" />
 
         <item
             android:id="@+id/starred"
             android:checked="false"
-            android:icon="@android:drawable/btn_dialog"
-            android:title="Hello 1" />
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:title="Favourites" />
 
         <item
             android:id="@+id/sent_mail"
             android:checked="false"
-            android:icon="@android:drawable/btn_dialog"
-            android:title="Hello 2" />
+            android:icon="@drawable/channel"
+            android:title="Settings" />
+
+    </group>
+
+    <group
+        android:id="@+id/menu_channels"
+        android:checkableBehavior="single">
 
         <item
             android:id="@+id/drafts"
             android:checked="false"
-            android:icon="@android:drawable/btn_dialog"
+            android:icon="@drawable/channel"
             android:title="Hello 3" />
 
         <item
-            android:id="@+id/allmail"
             android:checked="false"
-            android:icon="@android:drawable/btn_dialog"
+            android:icon="@drawable/channel"
             android:title="Hello 4" />
         <item
-            android:id="@+id/trash"
             android:checked="false"
-            android:icon="@android:drawable/btn_dialog"
+            android:icon="@drawable/channel"
             android:title="Hello 5" />
         <item
-            android:id="@+id/spam"
             android:checked="false"
-            android:icon="@android:drawable/btn_dialog"
+            android:icon="@drawable/channel"
+            android:title="Hello 6" />
+
+        <item
+            android:checked="false"
+            android:icon="@drawable/channel"
+            android:title="Hello 4" />
+        <item
+            android:checked="false"
+            android:icon="@drawable/channel"
+            android:title="Hello 5" />
+        <item
+            android:checked="false"
+            android:icon="@drawable/channel"
+            android:title="Hello 6" />
+
+        <item
+            android:checked="false"
+            android:icon="@drawable/channel"
+            android:title="Hello 4" />
+        <item
+            android:checked="false"
+            android:icon="@drawable/channel"
+            android:title="Hello 5" />
+        <item
+            android:checked="false"
+            android:icon="@drawable/channel"
             android:title="Hello 6" />
 
     </group>
