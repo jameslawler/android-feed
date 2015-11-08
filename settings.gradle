@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':opengraphparser', ':opengraphp', ':rssparser', ':httprx', ':runner', ':data'

@@ -1,5 +1,6 @@
 package com.jameslawler.android_feed;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,10 +15,29 @@ import android.view.View;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.jameslawler.android_feed.adapter.RssItemAdapter;
+import com.jameslawler.android_feed.data.DbModule;
+import com.jameslawler.android_feed.data.DbOpenHelper;
 import com.jameslawler.android_feed.model.RssItem;
+import com.jameslawler.library.HttpRx;
+import com.jameslawler.library.OpenGraphParser;
+import com.jameslawler.library.RssParser;
+import com.jameslawler.library.storio.entities.Channel;
+import com.pushtorefresh.storio.sqlite.StorIOSQLite;
+import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -39,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         feed.setLayoutManager(layoutManager);
 
-        rssItemAdapter = new RssItemAdapter(createList("DW Top Thema", 10));
+        rssItemAdapter = new RssItemAdapter(MainActivity.this, createList("DW Top Thema", 10));
         feed.setAdapter(rssItemAdapter);
 
         // Initializing Drawer Layout and ActionBarToggle
@@ -65,6 +85,51 @@ public class MainActivity extends AppCompatActivity {
 
         //calling sync state is necessay or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
+
+        RssParser rssParser = new RssParser();
+        OpenGraphParser openGraphParser = new OpenGraphParser();
+
+
+//        StorIOSQLite storIOSQLite = DbModule.provideStorIOSQLite(
+//                DbModule.provideSQLiteOpenHelper(this.getApplicationContext())
+//        );
+//
+//        storIOSQLite
+//                .put()
+//                .object(new Channel((long)123, "My Title", "My Desc"))
+//                .prepare()
+//                .createObservable()
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(x -> Log.v("STUDYFEED", "Data Saved"));
+
+
+        Observable
+                .just("http://rss.dw.com/xml/DKpodcast_topthemamitvokabeln_de")
+                .flatMap(x -> HttpRx.GetObservable(x))
+                .flatMap(x -> RssParser.ParseObservable(x))
+                .flatMapIterable(x -> x.channel.itemList)
+                .limit(3)
+                .flatMap(x -> HttpRx.GetObservable(x.link))
+                .flatMap(x -> OpenGraphParser.ParseObservable(x))
+                .filter(x -> x.getProperty().equalsIgnoreCase("og:image"))
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        x -> System.out.println(x.getContent()));
+
+
+
+//        Observable
+//                .just("http://rss.dw.com/xml/DKpodcast_topthemamitvokabeln_de")
+//                .flatMap(x -> rssParser.ParseObservable(x))
+//                .flatMap(x -> openGraphParser.ParseObservable(x))
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(success -> Log.v("STUDYFEED2", success),
+//                        error -> Log.v("STUDYFEED3", error.toString()));
+
+
     }
 
     private void changeList() {
@@ -107,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, DetailActivity.class);
+            startActivity(intent);
             return true;
         }
 
